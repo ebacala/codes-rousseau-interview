@@ -16,9 +16,10 @@
 
 html, body {
   font-family: "Montserrat", sans-serif;
-  font-size : clamp(1rem, 5vmin, 1.25rem);
-  min-height: 100vh;
-  width: 100vw;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Montserrat", sans-serif;
 }
 
 .debug {
@@ -27,75 +28,4 @@ html, body {
 
 .hidden {
   opacity: 0;
-}
-
-.flex-row {
-  display: flex;
-  flex-direction: row;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-}
-
-.flex-wrap {
-  flex-wrap: wrap;
-}
-
-.flex-wrap-reverse {
-  flex-wrap: wrap-reverse;
-}
-
-.flex-nowrap {
-  flex-wrap: nowrap;
-}
-
-.align-left {
-  align-items: left;
-}
-
-.align-center {
-  align-items: center;
-}
-
-.align-right {
-  align-items: right;
-}
-
-.justify-left {
-  justify-content: left;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.justify-right {
-  justify-content: right;
-}
-
-.justify-space-around {
-  justify-content: space-around;
-}
-
-.justify-space-between {
-  justify-content: space-between;
-}
-
-.justify-space-evenly {
-  justify-content: space-evenly;
-}
-
-.my-auto {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.w-80 {
-  width: 80vw;
-}
-
-.border-radius-10 {
-  border-radius: 10px;
 }
