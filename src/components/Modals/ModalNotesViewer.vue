@@ -50,10 +50,10 @@ watch(
   () => props.learnerId,
   (learnerId) => {
     learner.value = store.getLearner(learnerId)
-    chronologicallyInvertedSortedNotes = learner.value.notes.sort(
+    chronologicallyInvertedSortedNotes = [...learner.value.notes].sort(
       (a, b) => b.inputDate.getTime() - a.inputDate.getTime()
     )
-    chronologicallySortedNotes = learner.value.notes.sort((a, b) => a.inputDate.getTime() - b.inputDate.getTime())
+    chronologicallySortedNotes = [...learner.value.notes].sort((a, b) => a.inputDate.getTime() - b.inputDate.getTime())
   }
 )
 
