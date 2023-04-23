@@ -25,35 +25,52 @@
         </tbody>
       </table>
       <div id="chart">
-        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
+        <apexchart type="line" :options="chart.chartOptions" :series="chart.chartSeries"></apexchart>
       </div>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { reactive, ref, watch } from 'vue'
+import { useLearnersStore } from '../../store/useLearnersStore'
 
 import Modal from './Modal.vue'
 
-const props = defineProps(['learner'])
+const props = defineProps(['learnerId'])
 const emit = defineEmits(['modalClosed'])
 
-const chronologicallyInvertedSortedNotes = computed(() =>
-  props.learner.notes?.sort((a, b) => b.inputDate.getTime() - a.inputDate.getTime())
+const store = useLearnersStore()
+
+let learner = ref('')
+let chronologicallyInvertedSortedNotes = ref('')
+let chronologicallySortedNotes = ref('')
+let chart = reactive({
+  chartSeries: [],
+  chartOptions: {},
+})
+
+watch(
+  () => props.learnerId,
+  (learnerId) => {
+    learner.value = store.getLearner(learnerId)
+    chronologicallyInvertedSortedNotes.value = learner.value.notes.sort(
+      (a, b) => b.inputDate.getTime() - a.inputDate.getTime()
+    )
+    chronologicallySortedNotes.value = learner.value.notes.sort((a, b) => a.inputDate.getTime() - b.inputDate.getTime())
+    generateChart()
+  }
 )
 
-const chronologicallySortedNotes = computed(() => chronologicallyInvertedSortedNotes.value?.reverse())
+const generateChart = () => {
+  chart.chartSeries = [
+    {
+      name: 'Notes',
+      data: chronologicallySortedNotes.value.map((note) => note.value),
+    },
+  ]
 
-const chartSeries = computed(() => [
-  {
-    name: 'Notes',
-    data: chronologicallySortedNotes.value?.map((note) => note.value),
-  },
-])
-
-const chartOptions = computed(() => {
-  return {
+  chart.chartOptions = {
     chart: {
       height: 350,
       type: 'line',
@@ -68,7 +85,7 @@ const chartOptions = computed(() => {
       curve: 'straight',
     },
     title: {
-      text: `${props.learner?.lastName} ${props.learner?.firstName}'s notes over time`,
+      text: `${learner.value.lastName} ${learner.value.firstName}'s notes over time`,
       align: 'center',
     },
     grid: {
@@ -81,5 +98,6 @@ const chartOptions = computed(() => {
       categories: chronologicallySortedNotes.value?.map((note) => note.inputDate.toISOString().substring(0, 10)),
     },
   }
-})
+}
 </script>
+```

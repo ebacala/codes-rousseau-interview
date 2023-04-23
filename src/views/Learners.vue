@@ -1,9 +1,9 @@
 <template>
   <div class="container">
-    <ModalNotesViewer :learner="selectedLearner" @modal-closed="selectedLearner = ''" />
-    <ModalNoteCreation :learner="selectedLearner" @modal-closed="selectedLearner = ''" />
-    <ModalLearnerDeletion :learner="learnerToDelete" @modal-closed="learnerToDelete = ''" />
-    <ModalLearnerCreation />
+    <ModalNotesViewer :learnerId="selectedLearnerId" @modal-closed="selectedLearnerId = ''" />
+    <ModalNoteCreation :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
+    <ModalLearnerDeletion :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
+    <ModalLearnerCreation @modal-closed="getLearnersFromStore" />
     <div class="row d-flex flex-row align-items-center justify-content-center m-2">
       <button
         type="button"
@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="learner of store.learners"
+            v-for="learner of learners"
             :class="{
               'green-line': hasANoteAbove35(learner.notes),
               'red-line': hasANoteBelow20(learner.notes),
@@ -46,7 +46,7 @@
                 class="btn btn-secondary m-1 col-3"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-notes-viewer"
-                @click="selectedLearner = learner"
+                @click="selectedLearnerId = learner.id"
               >
                 See notes
               </button>
@@ -55,7 +55,7 @@
                 class="btn btn-primary m-1 col-3"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-note-creation"
-                @click="selectedLearner = learner"
+                @click="selectedLearnerId = learner.id"
               >
                 Add note
               </button>
@@ -64,7 +64,7 @@
                 class="btn btn-danger m-1 col-4"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-learner-deletion"
-                @click="learnerToDelete = learner"
+                @click="selectedLearnerId = learner.id"
               >
                 Delete learner
               </button>
@@ -82,7 +82,7 @@
             class="btn btn-secondary w-50 m-2"
             data-bs-toggle="modal"
             data-bs-target="#modal-notes-viewer"
-            @click="selectedLearner = learner"
+            @click="selectedLearnerId = learner.id"
           >
             See notes
           </button>
@@ -95,7 +95,7 @@
               class="btn btn-danger w-25 m-2"
               data-bs-toggle="modal"
               data-bs-target="#modal-learner-deletion"
-              @click="learnerToDelete = learner"
+              @click="selectedLearnerId = learner.id"
             >
               🗑️
             </button>
@@ -112,7 +112,7 @@
               class="btn btn-primary w-auto"
               data-bs-toggle="modal"
               data-bs-target="#modal-note-creation"
-              @click="selectedLearner = learner"
+              @click="selectedLearnerId = learner.id"
             >
               Add note
             </button>
@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { reactive, ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useLearnersStore } from '../store/useLearnersStore'
 
 import LearnerAvatar from '../components/LearnerAvatar.vue'
@@ -137,15 +137,18 @@ import { LEARNERS_TABLE_COLUMNS } from '../constants/constants'
 
 const store = useLearnersStore()
 
+let learners = ref('')
 let windowWidth = ref(window.innerWidth)
-let selectedLearner = ref('')
 
-let learnerToDelete = ref('')
+let selectedLearnerId = ref('')
+
+const getLearnersFromStore = () => (learners.value = store.$state.learners)
 
 onMounted(() => {
   nextTick(() => {
     window.addEventListener('resize', onWindowResize)
   })
+  getLearnersFromStore()
 })
 
 onBeforeUnmount(() => {

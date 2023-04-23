@@ -41,21 +41,23 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
 import { useLearnersStore } from '../../store/useLearnersStore'
 
 import Modal from './Modal.vue'
 
+const emit = defineEmits(['modalClosed'])
+
 const store = useLearnersStore()
 
-const modalLearnerCreation = ref(null)
-
-const formRef = ref(null)
 let newLearner = ref({
   firstName: '',
   lastName: '',
   birthDate: '',
 })
+
+const modalLearnerCreation = ref(null)
+const formRef = ref(null)
 
 const createLearner = (event) => {
   event.preventDefault()
@@ -67,6 +69,7 @@ const createLearner = (event) => {
 
       newLearner.value = ''
       modalLearnerCreation.value.closeModal()
+      emit('modalClosed')
     } else {
       window.alert('This learner aleady exists!')
     }
