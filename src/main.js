@@ -1,5 +1,3 @@
-import '../assets/css/reset.min.css'
-
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
 
@@ -14,9 +12,11 @@ import { routes } from './router/routes'
 import { createPinia } from 'pinia'
 import { useLearnersStore } from './store/useLearnersStore'
 
+// import VueApexCharts from 'vue3-apexcharts'
+
 const router = VueRouter.createRouter({
-    history: VueRouter.createWebHistory(),
-    routes,
+  history: VueRouter.createWebHistory(),
+  routes,
 })
 
 const pinia = createPinia()
@@ -25,6 +25,7 @@ const app = createApp(App)
 
 app.use(router)
 app.use(pinia)
+// app.use(VueApexCharts)
 
 useLearnersStore()
 
