@@ -31,9 +31,9 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .green-line>td {
-  background-color: var(--bs-success) !important;
+  background-color: lightgreen !important;
 }
 
 .red-line>td {
-  background-color: var(--bs-danger);
+  background-color: lightcoral;
 }

@@ -75,8 +75,8 @@ export const useLearnersStore = defineStore('learners', {
         )
       }
     },
-    getLearnersWithAverageNote(state) {
-      return (averageNote) => state.learners.filter((learner) => this.getLearnerAverageNote(learner.id) === averageNote)
+    getLearnersThatGotNote(state) {
+      return (pNote) => state.learners.filter((learner) => learner.notes.some((note) => note.value === pNote))
     },
   },
 })
