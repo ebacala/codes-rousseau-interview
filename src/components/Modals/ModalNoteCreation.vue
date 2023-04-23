@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modalNoteCreation" id="modal-note-creation">
+  <Modal ref="modalNoteCreation" modalId="modal-note-creation">
     <template #title>Add a note to {{ learner.firstName }} {{ learner.lastName }}'s profile</template>
     <template #body>
       <form ref="formRef" class="row">
@@ -46,6 +46,7 @@ const addNote = (event) => {
   if (formRef.value.checkValidity()) {
     store.addNoteToLearner(props.learner.id, { ...note, inputDate: new Date(note.inputDate) })
     modalNoteCreation.value.closeModal()
+    modalNoteCreation.value.dispose()
   }
 }
 </script>

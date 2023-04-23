@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modalLearnerCreation" id="modal-learner-creation">
+  <Modal ref="modalLearnerCreation" modalId="modal-learner-creation">
     <template #title>Create a new learner profile</template>
     <template #body>
       <form ref="formRef" class="row">
