@@ -17,6 +17,8 @@ import { useLearnersStore } from '../../store/useLearnersStore'
 import Modal from './Modal.vue'
 
 const props = defineProps(['learner'])
+const emit = defineEmits(['modalClosed'])
+
 const store = useLearnersStore()
 
 const modalLearnerDeletion = ref(null)
@@ -24,7 +26,10 @@ const modalLearnerDeletion = ref(null)
 const deleteLearner = (event) => {
   event.preventDefault()
   event.stopPropagation()
+
   store.deleteLearner(props.learner.id)
+
   modalLearnerDeletion.value.closeModal()
+  emit('modalClosed')
 }
 </script>

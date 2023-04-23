@@ -2,7 +2,7 @@
   <div class="container">
     <ModalNotesViewer :learner="selectedLearner" />
     <ModalNoteCreation :learner="selectedLearner" />
-    <ModalLearnerDeletion :learner="selectedLearner" />
+    <ModalLearnerDeletion :learner="learnerToDelete" @modal-closed="learnerToDelete = ''" />
     <ModalLearnerCreation />
     <div class="row d-flex flex-row align-items-center justify-content-center m-2">
       <button
@@ -64,7 +64,7 @@
                 class="btn btn-danger m-1 col-4"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-learner-deletion"
-                @click="selectedLearner = learner"
+                @click="learnerToDelete = learner"
               >
                 Delete learner
               </button>
@@ -95,7 +95,7 @@
               class="btn btn-danger w-25 m-2"
               data-bs-toggle="modal"
               data-bs-target="#modal-learner-deletion"
-              @click="selectedLearner = learner"
+              @click="learnerToDelete = learner"
             >
               🗑️
             </button>
@@ -124,7 +124,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
+import { reactive, ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useLearnersStore } from '../store/useLearnersStore'
 
 import LearnerAvatar from '../components/LearnerAvatar.vue'
@@ -139,6 +139,8 @@ const store = useLearnersStore()
 
 let windowWidth = ref(window.innerWidth)
 let selectedLearner = ref('')
+
+let learnerToDelete = ref('')
 
 onMounted(() => {
   nextTick(() => {

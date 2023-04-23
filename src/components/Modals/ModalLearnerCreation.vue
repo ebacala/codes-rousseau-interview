@@ -51,7 +51,7 @@ const store = useLearnersStore()
 const modalLearnerCreation = ref(null)
 
 const formRef = ref(null)
-const newLearner = reactive({
+let newLearner = ref({
   firstName: '',
   lastName: '',
   birthDate: '',
@@ -62,8 +62,10 @@ const createLearner = (event) => {
   event.stopPropagation()
 
   if (formRef.value.checkValidity()) {
-    if (store.canCreateNewLearner({ ...newLearner, birthDate: new Date(newLearner.birthDate) })) {
-      store.createLearner({ ...newLearner, birthDate: new Date(newLearner.birthDate) })
+    if (store.canCreateNewLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })) {
+      store.createLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })
+
+      newLearner.value = ''
       modalLearnerCreation.value.closeModal()
     } else {
       window.alert('This learner aleady exists!')
