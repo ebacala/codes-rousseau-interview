@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <ModalNotesViewer :learnerId="selectedLearnerId" @modal-closed="selectedLearnerId = ''" />
+    <ModalNotesViewer :learnerId="selectedLearnerId" @modal-closed="selectedLearnerId = 0" />
     <ModalNoteCreation :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
     <ModalLearnerDeletion :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
     <ModalLearnerCreation @modal-closed="getLearnersFromStore" />
