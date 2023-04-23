@@ -42,10 +42,12 @@ const chronologicallyInvertedSortedNotes = computed(() =>
   props.learner.notes?.sort((a, b) => b.inputDate.getTime() - a.inputDate.getTime())
 )
 
+const chronologicallySortedNotes = computed(() => chronologicallyInvertedSortedNotes.value?.reverse())
+
 const chartSeries = computed(() => [
   {
     name: 'Notes',
-    data: props.learner.notes?.map((note) => note.value),
+    data: chronologicallySortedNotes.value?.map((note) => note.value),
   },
 ])
 
@@ -75,7 +77,7 @@ const chartOptions = computed(() => {
       },
     },
     xaxis: {
-      categories: props.learner.notes?.map((note) => note.inputDate.toISOString().substring(0, 10)),
+      categories: chronologicallySortedNotes.value?.map((note) => note.inputDate.toISOString().substring(0, 10)),
     },
   }
 })

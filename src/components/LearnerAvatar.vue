@@ -1,6 +1,6 @@
 <template>
   <div class="p-0 learner-avatar">
-    <img src="assets/images/avatar.webp" :alt="`${firstName} ${lastName}'s avatar`" />
+    <img src="/assets/images/avatar.webp" :alt="`${firstName} ${lastName}'s avatar`" />
     <div class="initials text-center">
       {{ initials }}
     </div>
