@@ -1,5 +1,5 @@
 <template>
-  <Modal modalRef="modalRef" modalId="modal-notes-viewer">
+  <Modal modalRef="modalRef" modalId="modal-notes-viewer" @modal-closed="emit('modalClosed')">
     <template #title>{{ learner.firstName }} {{ learner.lastName }}'s notes</template>
     <template #body>
       <table class="table">
@@ -37,6 +37,7 @@ import { computed } from 'vue'
 import Modal from './Modal.vue'
 
 const props = defineProps(['learner'])
+const emit = defineEmits(['modalClosed'])
 
 const chronologicallyInvertedSortedNotes = computed(() =>
   props.learner.notes?.sort((a, b) => b.inputDate.getTime() - a.inputDate.getTime())

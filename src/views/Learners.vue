@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <ModalNotesViewer :learner="selectedLearner" />
-    <ModalNoteCreation :learner="selectedLearner" />
+    <ModalNotesViewer :learner="selectedLearner" @modal-closed="selectedLearner = ''" />
+    <ModalNoteCreation :learner="selectedLearner" @modal-closed="selectedLearner = ''" />
     <ModalLearnerDeletion :learner="learnerToDelete" @modal-closed="learnerToDelete = ''" />
     <ModalLearnerCreation />
     <div class="row d-flex flex-row align-items-center justify-content-center m-2">

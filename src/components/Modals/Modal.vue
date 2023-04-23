@@ -25,9 +25,13 @@ import { ref } from 'vue'
 import { Modal } from 'bootstrap'
 
 const props = defineProps(['modalId'])
+const emit = defineEmits(['modalClosed'])
 
 const modalRef = ref(null)
-const closeModal = () => Modal.getInstance(modalRef.value)?.hide()
+const closeModal = () => {
+  Modal.getInstance(modalRef.value)?.hide()
+  emit('modalClosed')
+}
 
 defineExpose({
   closeModal,

@@ -28,13 +28,15 @@ import { useLearnersStore } from '../../store/useLearnersStore'
 import Modal from './Modal.vue'
 
 const props = defineProps(['learner'])
+const emit = defineEmits(['modalClosed'])
+
 const store = useLearnersStore()
 
 const modalNoteCreation = ref(null)
 
 const formRef = ref(null)
 
-const note = reactive({
+let note = ref({
   value: -1,
   inputDate: new Date().toISOString().substring(0, 10),
 })
@@ -44,9 +46,11 @@ const addNote = (event) => {
   event.stopPropagation()
 
   if (formRef.value.checkValidity()) {
-    store.addNoteToLearner(props.learner.id, { ...note, inputDate: new Date(note.inputDate) })
+    store.addNoteToLearner(props.learner.id, { ...note.value, inputDate: new Date(note.value.inputDate) })
+
+    note.value = ''
     modalNoteCreation.value.closeModal()
-    modalNoteCreation.value.dispose()
+    emit('modalClosed')
   }
 }
 </script>
