@@ -12,7 +12,7 @@ import { routes } from './router/routes'
 import { createPinia } from 'pinia'
 import { useLearnersStore } from './store/useLearnersStore'
 
-// import VueApexCharts from 'vue3-apexcharts'
+import VueApexCharts from 'vue3-apexcharts'
 
 const router = VueRouter.createRouter({
   history: VueRouter.createWebHistory(),
@@ -25,7 +25,7 @@ const app = createApp(App)
 
 app.use(router)
 app.use(pinia)
-// app.use(VueApexCharts)
+app.use(VueApexCharts)
 
 useLearnersStore()
 

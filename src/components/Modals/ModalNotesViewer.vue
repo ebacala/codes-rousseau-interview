@@ -24,9 +24,9 @@
           </tr>
         </tbody>
       </table>
-      <!-- <div id="chart">
-                        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
-                    </div> -->
+      <div id="chart">
+        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
+      </div>
     </template>
   </Modal>
 </template>
@@ -41,4 +41,42 @@ const props = defineProps(['learner'])
 const chronologicallyInvertedSortedNotes = computed(() =>
   props.learner.notes?.sort((a, b) => b.inputDate.getTime() - a.inputDate.getTime())
 )
+
+const chartSeries = computed(() => [
+  {
+    name: 'Notes',
+    data: props.learner.notes?.map((note) => note.value),
+  },
+])
+
+const chartOptions = computed(() => {
+  return {
+    chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
+        enabled: false,
+      },
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: 'straight',
+    },
+    title: {
+      text: `${props.learner?.lastName} ${props.learner?.firstName}'s notes over time`,
+      align: 'center',
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'],
+        opacity: 0.5,
+      },
+    },
+    xaxis: {
+      categories: props.learner.notes?.map((note) => note.inputDate.toISOString().substring(0, 10)),
+    },
+  }
+})
 </script>
