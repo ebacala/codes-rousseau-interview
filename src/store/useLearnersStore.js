@@ -71,8 +71,8 @@ export const useLearnersStore = defineStore('learners', {
         return (
           learner.notes
             .map((note) => note.value)
-            .reduce((previousValue, currentValue) => previousValue + currentValue, 0) / learner.notes.length.toFixed(2)
-        )
+            .reduce((previousValue, currentValue) => previousValue + currentValue, 0) / learner.notes.length
+        ).toFixed(2)
       }
     },
     getLearnersThatGotNote(state) {
