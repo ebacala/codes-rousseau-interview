@@ -1,74 +1,130 @@
 <template>
   <div class="container">
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal-learner-creation">
-      New learner
-    </button>
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col" v-for="column of LEARNERS_TABLE_COLUMNS">
-            {{ column }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="learner of store.learners"
-          :class="{
-            'green-line': hasANoteAbove35(learner.notes),
-            'red-line': hasANoteBelow20(learner.notes),
-          }"
-        >
-          <td>
-            <LearnerAvatar :firstName="learner.firstName" :lastName="learner.lastName" />
-          </td>
-          <td>{{ learner.lastName }}</td>
-          <td>{{ learner.firstName }}</td>
-          <td>
-            {{ learner.birthDate.toISOString().substring(0, 10) }}
-          </td>
-          <td>{{ store.getLearnerAverageNote(learner.id) }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-notes-viewer"
-              @click="selectedLearner = learner"
-            >
-              See notes
-            </button>
-            <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-note-creation"
-              @click="selectedLearner.value = learner"
-            >
-              Add a note
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger"
-              data-bs-toggle="modal"
-              data-bs-target="#modal-learner-deletion"
-              @click="selectedLearner.value = learner"
-            >
-              Delete learner
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
     <ModalNotesViewer :learner="selectedLearner" />
     <ModalNoteCreation :learner="selectedLearner" />
     <ModalLearnerDeletion :learner="selectedLearner" />
     <ModalLearnerCreation />
+    <div class="row d-flex flex-row align-items-center justify-content-center m-2">
+      <button
+        type="button"
+        class="btn btn-success col-sm-2 col-4"
+        data-bs-toggle="modal"
+        data-bs-target="#modal-learner-creation"
+      >
+        New learner
+      </button>
+    </div>
+    <div v-if="windowWidth >= 768" class="row">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" v-for="column of LEARNERS_TABLE_COLUMNS">
+              {{ column }}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            v-for="learner of store.learners"
+            :class="{
+              'green-line': hasANoteAbove35(learner.notes),
+              'red-line': hasANoteBelow20(learner.notes),
+            }"
+          >
+            <td class="align-middle">
+              <LearnerAvatar :firstName="learner.firstName" :lastName="learner.lastName" />
+            </td>
+            <td class="align-middle">{{ learner.lastName }}</td>
+            <td class="align-middle">{{ learner.firstName }}</td>
+            <td class="align-middle">
+              {{ learner.birthDate.toISOString().substring(0, 10) }}
+            </td>
+            <td class="align-middle">{{ store.getLearnerAverageNote(learner.id) }}</td>
+            <td class="align-middle">
+              <button
+                type="button"
+                class="btn btn-secondary m-1 col-3"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-notes-viewer"
+                @click="selectedLearner = learner"
+              >
+                See notes
+              </button>
+              <button
+                type="button"
+                class="btn btn-primary m-1 col-3"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-note-creation"
+                @click="selectedLearner = learner"
+              >
+                Add note
+              </button>
+              <button
+                type="button"
+                class="btn btn-danger m-1 col-4"
+                data-bs-toggle="modal"
+                data-bs-target="#modal-learner-deletion"
+                @click="selectedLearner = learner"
+              >
+                Delete learner
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div v-else class="row">
+      <div class="card col-11 m-3" v-for="learner of store.learners">
+        <div class="row d-flex flex-row align-items-center justify-content-between">
+          <LearnerAvatar :firstName="learner.firstName" :lastName="learner.lastName" />
+          <button
+            type="button"
+            class="btn btn-secondary w-50 m-2"
+            data-bs-toggle="modal"
+            data-bs-target="#modal-notes-viewer"
+            @click="selectedLearner = learner"
+          >
+            See notes
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="row d-flex flex-row align-items-center justify-content-between">
+            <h5 class="card-title w-50">{{ `${learner.lastName} ${learner.firstName}` }}</h5>
+            <button
+              type="button"
+              class="btn btn-danger w-25 m-2"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-learner-deletion"
+              @click="selectedLearner = learner"
+            >
+              🗑️
+            </button>
+          </div>
+
+          <div class="row">
+            <p class="card-text">Birth date: {{ learner.birthDate.toISOString().substring(0, 10) }}</p>
+          </div>
+
+          <div class="row d-flex flex-row align-items-center justify-content-between">
+            <p class="card-text w-50">Average note: {{ store.getLearnerAverageNote(learner.id) }}</p>
+            <button
+              type="button"
+              class="btn btn-primary w-auto"
+              data-bs-toggle="modal"
+              data-bs-target="#modal-note-creation"
+              @click="selectedLearner = learner"
+            >
+              Add note
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useLearnersStore } from '../store/useLearnersStore'
 
 import LearnerAvatar from '../components/LearnerAvatar.vue'
@@ -81,7 +137,23 @@ import { LEARNERS_TABLE_COLUMNS } from '../constants/constants'
 
 const store = useLearnersStore()
 
+let windowWidth = ref(window.innerWidth)
 let selectedLearner = ref('')
+
+onMounted(() => {
+  nextTick(() => {
+    window.addEventListener('resize', onWindowResize)
+  })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', onWindowResize)
+  window.removeEventListener('scroll', onWindowResize)
+})
+
+const onWindowResize = () => {
+  windowWidth.value = window.innerWidth
+}
 
 const hasANoteAbove35 = (notes) => {
   return notes.map((note) => note.value).filter((note) => note > 35).length > 0

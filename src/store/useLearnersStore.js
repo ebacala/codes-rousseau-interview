@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
 
+import { capitalizeString } from '../services/string'
+
 export const useLearnersStore = defineStore('learners', {
   state: () => ({
     learners: [],
@@ -9,6 +11,8 @@ export const useLearnersStore = defineStore('learners', {
       this.learners = learners.map((learner) => {
         return {
           ...learner,
+          firstName: capitalizeString(learner.firstName),
+          lastName: learner.lastName.toUpperCase(),
           birthDate: new Date(learner.birthDate),
           notes: learner.notes.map((note) => {
             return {
@@ -44,8 +48,8 @@ export const useLearnersStore = defineStore('learners', {
       this.$patch((state) => {
         state.learners.push({
           id: state.learners.length + 1,
-          firstName: newLearner.firstName,
-          lastName: newLearner.lastName,
+          firstName: capitalizeString(newLearner.firstName),
+          lastName: newLearner.lastName.toUpperCase(),
           birthDate: newLearner.birthDate,
           notes: [],
         })

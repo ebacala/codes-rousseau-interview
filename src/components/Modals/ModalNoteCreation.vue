@@ -35,7 +35,7 @@ const modalNoteCreation = ref(null)
 const formRef = ref(null)
 
 const note = reactive({
-  value: 0,
+  value: -1,
   inputDate: new Date().toISOString().substring(0, 10),
 })
 
