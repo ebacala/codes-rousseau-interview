@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <ModalNotesViewer :learnerId="selectedLearnerId" @modal-closed="selectedLearnerId = 0" />
-    <ModalNoteCreation :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
+    <ModalNotesViewer :learner="selectedLearner" />
+    <ModalNoteCreation :learnerId="selectedLearnerId" />
     <ModalLearnerDeletion :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
     <ModalLearnerCreation @modal-closed="getLearnersFromStore" />
     <div class="row d-flex flex-row align-items-center justify-content-center m-2">
@@ -25,7 +25,7 @@
         </thead>
         <tbody>
           <tr
-            v-for="learner of learners"
+            v-for="learner of store.$state.learners"
             :class="{
               'green-line': hasANoteAbove35(learner.notes),
               'red-line': hasANoteBelow20(learner.notes),
@@ -46,7 +46,7 @@
                 class="btn btn-secondary m-1 col-3"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-notes-viewer"
-                @click="selectedLearnerId = learner.id"
+                @click="selectedLearner = learner"
               >
                 See notes
               </button>
@@ -82,7 +82,7 @@
             class="btn btn-secondary w-50 m-2"
             data-bs-toggle="modal"
             data-bs-target="#modal-notes-viewer"
-            @click="selectedLearnerId = learner.id"
+            @click="selectedLearner = learner"
           >
             See notes
           </button>
@@ -137,23 +137,25 @@ import { LEARNERS_TABLE_COLUMNS } from '../constants/constants'
 
 const store = useLearnersStore()
 
-let learners = ref('')
 let windowWidth = ref(window.innerWidth)
 
 let selectedLearnerId = ref('')
-
-const getLearnersFromStore = () => (learners.value = store.$state.learners)
+let selectedLearner = ref({
+  id: -1,
+  lastName: '',
+  firstName: '',
+  birthDate: '',
+  notes: [],
+})
 
 onMounted(() => {
   nextTick(() => {
     window.addEventListener('resize', onWindowResize)
   })
-  getLearnersFromStore()
 })
 
 onBeforeUnmount(() => {
   window.removeEventListener('resize', onWindowResize)
-  window.removeEventListener('scroll', onWindowResize)
 })
 
 const onWindowResize = () => {

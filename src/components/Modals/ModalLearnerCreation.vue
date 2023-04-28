@@ -44,7 +44,7 @@
 import { ref } from 'vue'
 import { useLearnersStore } from '../../store/useLearnersStore'
 
-import Modal from './Modal.vue'
+import Modal from './Modal/Modal.vue'
 
 const emit = defineEmits(['modalClosed'])
 

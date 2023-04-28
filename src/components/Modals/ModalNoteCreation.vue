@@ -25,7 +25,7 @@
 import { ref, watch } from 'vue'
 import { useLearnersStore } from '../../store/useLearnersStore'
 
-import Modal from './Modal.vue'
+import Modal from './Modal/Modal.vue'
 
 const props = defineProps(['learnerId'])
 const emit = defineEmits(['modalClosed'])

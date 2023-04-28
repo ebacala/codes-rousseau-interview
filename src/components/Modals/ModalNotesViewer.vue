@@ -25,73 +25,61 @@
         </tbody>
       </table>
       <div id="chart">
-        <apexchart type="line" :options="chart.chartOptions" :series="chart.chartSeries"></apexchart>
+        <apexchart type="line" :options="chartOptions" :series="chartSeries"></apexchart>
       </div>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { computed, reactive, ref, watch } from 'vue'
-import { useLearnersStore } from '../../store/useLearnersStore'
+import { computed } from 'vue'
 
-import Modal from './Modal.vue'
+import Modal from './Modal/Modal.vue'
 
-const props = defineProps(['learnerId'])
+const props = defineProps(['learner'])
 const emit = defineEmits(['modalClosed'])
 
-const store = useLearnersStore()
-
-let learner = ref('')
-let chronologicallyInvertedSortedNotes = reactive([])
-let chronologicallySortedNotes = reactive([])
-
-watch(
-  () => props.learnerId,
-  (learnerId) => {
-    learner.value = store.getLearner(learnerId)
-    chronologicallyInvertedSortedNotes = [...learner.value.notes].sort(
-      (a, b) => b.inputDate.getTime() - a.inputDate.getTime()
-    )
-    chronologicallySortedNotes = [...learner.value.notes].sort((a, b) => a.inputDate.getTime() - b.inputDate.getTime())
-  }
+const chronologicallyInvertedSortedNotes = computed(() =>
+  [...props.learner.notes].sort((a, b) => b.inputDate.getTime() - a.inputDate.getTime())
 )
 
-const chart = computed(() => {
+const chronologicallySortedNotes = computed(() =>
+  [...props.learner.notes].sort((a, b) => a.inputDate.getTime() - b.inputDate.getTime())
+)
+
+const chartSeries = computed(() => [
+  {
+    name: 'Notes',
+    data: chronologicallySortedNotes.value.map((note) => note.value),
+  },
+])
+const chartOptions = computed(() => {
   return {
-    chartSeries: [
-      {
-        name: 'Notes',
-        data: chronologicallySortedNotes.map((note) => note.value),
-      },
-    ],
-    chartOptions: {
-      chart: {
-        height: 350,
-        type: 'line',
-        zoom: {
-          enabled: false,
-        },
-      },
-      dataLabels: {
+    chart: {
+      height: 350,
+      type: 'line',
+      zoom: {
         enabled: false,
       },
-      stroke: {
-        curve: 'straight',
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    stroke: {
+      curve: 'straight',
+    },
+    title: {
+      text: `${props.learner.lastName} ${props.learner.firstName}'s notes over time`,
+      align: 'center',
+    },
+    grid: {
+      row: {
+        colors: ['#f3f3f3', 'transparent'],
+        opacity: 0.5,
       },
-      title: {
-        text: `${learner.value.lastName} ${learner.value.firstName}'s notes over time`,
-        align: 'center',
-      },
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.5,
-        },
-      },
-      xaxis: {
-        categories: chronologicallySortedNotes.map((note) => note.inputDate.toISOString().substring(0, 10)),
-      },
+    },
+    xaxis: {
+      categories: chronologicallySortedNotes.value.map((note) => note.inputDate.toISOString().substring(0, 10)),
     },
   }
 })

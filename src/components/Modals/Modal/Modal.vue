@@ -12,7 +12,15 @@
 
         <div class="modal-footer">
           <slot name="footer"></slot>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button
+            :id="`${props.modalId}-close-button`"
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            @click="closeModal"
+          >
+            Close
+          </button>
         </div>
       </div>
     </div>
