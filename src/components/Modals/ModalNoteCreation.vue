@@ -43,6 +43,13 @@ const addNote = (event) => {
   event.preventDefault()
   event.stopPropagation()
 
+  // For some unknown reason, the form validation messages stopped working on their own, so this is a bypass
+  for (const element of formRef.value.elements) {
+    if (!element.checkValidity()) {
+      element.classList.add('is-invalid')
+    }
+  }
+
   if (formRef.value.checkValidity()) {
     store.addNoteToLearner(props.learner.id, {
       value: note.value.value,

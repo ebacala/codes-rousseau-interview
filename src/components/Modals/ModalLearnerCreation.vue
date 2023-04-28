@@ -61,6 +61,13 @@ const createLearner = (event) => {
   event.preventDefault()
   event.stopPropagation()
 
+  // For some unknown reason, the form validation messages stopped working on their own, so this is a bypass
+  for (const element of formRef.value.elements) {
+    if (!element.checkValidity()) {
+      element.classList.add('is-invalid')
+    }
+  }
+
   if (formRef.value.checkValidity()) {
     if (store.canCreateNewLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })) {
       store.createLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })
