@@ -46,8 +46,6 @@ import { useLearnersStore } from '../../store/useLearnersStore'
 
 import Modal from './Modal/Modal.vue'
 
-const emit = defineEmits(['modalClosed'])
-
 const store = useLearnersStore()
 
 let newLearner = ref({
@@ -69,7 +67,6 @@ const createLearner = (event) => {
 
       newLearner.value = ''
       modalLearnerCreation.value.closeModal()
-      emit('modalClosed')
     } else {
       window.alert('This learner aleady exists!')
     }

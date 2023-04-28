@@ -22,31 +22,21 @@
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 import { useLearnersStore } from '../../store/useLearnersStore'
 
 import Modal from './Modal/Modal.vue'
 
-const props = defineProps(['learnerId'])
-const emit = defineEmits(['modalClosed'])
+const props = defineProps(['learner'])
 
 const store = useLearnersStore()
 
-let learner = ref('')
 let note = ref({
-  value: -1,
+  value: 0,
   inputDate: new Date().toISOString().substring(0, 10),
 })
 
-watch(
-  () => props.learnerId,
-  (learnerId) => {
-    learner.value = store.getLearner(learnerId)
-  }
-)
-
 const modalNoteCreation = ref(null)
-
 const formRef = ref(null)
 
 const addNote = (event) => {
@@ -54,14 +44,16 @@ const addNote = (event) => {
   event.stopPropagation()
 
   if (formRef.value.checkValidity()) {
-    store.addNoteToLearner(props.learnerId, { ...note.value, inputDate: new Date(note.value.inputDate) })
+    store.addNoteToLearner(props.learner.id, {
+      value: note.value.value,
+      inputDate: new Date(note.value.inputDate),
+    })
 
     note.value = {
-      value: -1,
+      value: 0,
       inputDate: new Date().toISOString().substring(0, 10),
     }
     modalNoteCreation.value.closeModal()
-    emit('modalClosed')
   }
 }
 </script>

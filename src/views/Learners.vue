@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <ModalNotesViewer :learner="selectedLearner" />
-    <ModalNoteCreation :learnerId="selectedLearnerId" />
-    <ModalLearnerDeletion :learnerId="selectedLearnerId" @modal-closed="getLearnersFromStore" />
-    <ModalLearnerCreation @modal-closed="getLearnersFromStore" />
+    <ModalNoteCreation :learner="selectedLearner" />
+    <ModalLearnerDeletion :learner="selectedLearner" />
+    <ModalLearnerCreation />
     <div class="row d-flex flex-row align-items-center justify-content-center m-2">
       <button
         type="button"
@@ -55,7 +55,7 @@
                 class="btn btn-primary m-1 col-3"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-note-creation"
-                @click="selectedLearnerId = learner.id"
+                @click="selectedLearner = learner"
               >
                 Add note
               </button>
@@ -64,7 +64,7 @@
                 class="btn btn-danger m-1 col-4"
                 data-bs-toggle="modal"
                 data-bs-target="#modal-learner-deletion"
-                @click="selectedLearnerId = learner.id"
+                @click="selectedLearner = learner"
               >
                 Delete learner
               </button>
@@ -95,7 +95,7 @@
               class="btn btn-danger w-25 m-2"
               data-bs-toggle="modal"
               data-bs-target="#modal-learner-deletion"
-              @click="selectedLearnerId = learner.id"
+              @click="selectedLearner = learner"
             >
               🗑️
             </button>
@@ -112,7 +112,7 @@
               class="btn btn-primary w-auto"
               data-bs-toggle="modal"
               data-bs-target="#modal-note-creation"
-              @click="selectedLearnerId = learner.id"
+              @click="selectedLearner = learner"
             >
               Add note
             </button>
@@ -139,7 +139,6 @@ const store = useLearnersStore()
 
 let windowWidth = ref(window.innerWidth)
 
-let selectedLearnerId = ref('')
 let selectedLearner = ref({
   id: -1,
   lastName: '',
