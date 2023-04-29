@@ -6,24 +6,28 @@
         <div class="mb-3">
           <label for="noteFormDateInput" class="form-label">Date</label>
           <input id="noteFormDateInput" v-model="note.inputDate" type="date" class="form-control" required />
-          <div class="invalid-feedback">Please provide a valid date.</div>
+          <div id="noteFormDateInput-invalid-feedback" class="invalid-feedback">Please provide a valid date.</div>
         </div>
         <div class="mb-3">
           <label for="noteFormNoteInput" class="form-label">Note (between 0 and 40)</label>
           <input id="noteFormNoteInput" v-model="note.value" type="number" class="form-control" min="0" max="40" />
-          <div class="invalid-feedback">Please provide a note between 0 and 40.</div>
+          <div id="noteFormNoteInput-invalid-feedback" class="invalid-feedback">
+            Please provide a note between 0 and 40.
+          </div>
         </div>
       </form>
     </template>
     <template #footer>
-      <button class="btn btn-primary" type="submit" @click="addNote">Add note</button>
+      <button id="modal-note-creation-submit-button" class="btn btn-primary" type="submit" @click="addNote">
+        Add note
+      </button>
     </template>
   </Modal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useLearnersStore } from '../../../store/useLearnersStore'
+import { useLearnersStore } from '@/store/useLearnersStore'
 
 import Modal from '@/components/Modals/Modal/Modal.vue'
 
