@@ -12,6 +12,7 @@
         <tbody>
           <tr
             v-for="note of chronologicallyInvertedSortedNotes"
+            :key="note.id"
             :class="{
               'green-line': note.value > 35,
               'red-line': note.value < 20,
@@ -34,7 +35,7 @@
 <script setup>
 import { computed } from 'vue'
 
-import Modal from './Modal/Modal.vue'
+import Modal from '@/components/Modals/Modal/Modal.vue'
 
 const props = defineProps(['learner'])
 

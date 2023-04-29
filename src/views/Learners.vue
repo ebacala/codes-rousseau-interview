@@ -128,7 +128,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import { useLearnersStore } from '../store/useLearnersStore'
 
 import LearnerAvatar from '../components/LearnerAvatar.vue'
-import ModalNotesViewer from '../components/Modals/ModalNotesViewer.vue'
+import ModalNotesViewer from '../components/Modals/ModalNotesViewer/ModalNotesViewer.vue'
 import ModalNoteCreation from '../components/Modals/ModalNoteCreation/ModalNoteCreation.vue'
 import ModalLearnerDeletion from '../components/Modals/ModalLearnerDeletion.vue'
 import ModalLearnerCreation from '../components/Modals/ModalLearnerCreation.vue'
