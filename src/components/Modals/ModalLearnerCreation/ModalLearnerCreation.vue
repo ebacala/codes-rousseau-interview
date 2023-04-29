@@ -12,7 +12,7 @@
             class="form-control"
             required
           />
-          <div class="invalid-feedback">Please provide a last name.</div>
+          <div id="learnerFormLastNameInput-invalid-feedback" class="invalid-feedback">Please provide a last name.</div>
         </div>
 
         <div class="mb-3">
@@ -24,27 +24,39 @@
             class="form-control"
             required
           />
-          <div class="invalid-feedback">Please provide a first name.</div>
+          <div id="learnerFormFirstNameInput-invalid-feedback" class="invalid-feedback">
+            Please provide a first name.
+          </div>
         </div>
 
         <div class="mb-3">
-          <label for="learnerFormDateInput" class="form-label">Birth Date</label>
-          <input id="learnerFormDateInput" v-model="newLearner.birthDate" type="date" class="form-control" required />
-          <div class="invalid-feedback">Please provide a valid birth date.</div>
+          <label for="learnerFormBirthDateInput" class="form-label">Birth Date</label>
+          <input
+            id="learnerFormBirthDateInput"
+            v-model="newLearner.birthDate"
+            type="date"
+            class="form-control"
+            required
+          />
+          <div id="learnerFormBirthDateInput-invalid-feedback" class="invalid-feedback">
+            Please provide a valid birth date.
+          </div>
         </div>
       </form>
     </template>
     <template #footer>
-      <button class="btn btn-primary" type="submit" @click="createLearner">Create the learner's profile</button>
+      <button id="modal-learner-creation-submit-button" class="btn btn-primary" type="submit" @click="createLearner">
+        Create the learner's profile
+      </button>
     </template>
   </Modal>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useLearnersStore } from '../../store/useLearnersStore'
+import { useLearnersStore } from '@/store/useLearnersStore'
 
-import Modal from './Modal/Modal.vue'
+import Modal from '@/components/Modals/Modal/Modal.vue'
 
 const store = useLearnersStore()
 

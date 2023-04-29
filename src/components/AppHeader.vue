@@ -28,5 +28,5 @@
 </template>
 
 <script setup>
-import CodeRousseauLogo from './CodeRousseauLogo.vue'
+import CodeRousseauLogo from '@/components/CodeRousseauLogo.vue'
 </script>

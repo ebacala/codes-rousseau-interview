@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-import { capitalizeString } from '../services/string'
+import { capitalizeString } from '@/services/string'
 
 export const useLearnersStore = defineStore('learners', {
   state: () => ({
@@ -38,8 +38,8 @@ export const useLearnersStore = defineStore('learners', {
       return (
         this.learners.find(
           (learner) =>
-            learner.lastName === newLearner.lastName &&
-            learner.firstName === newLearner.firstName &&
+            learner.lastName === newLearner.lastName.toUpperCase() &&
+            learner.firstName === capitalizeString(newLearner.firstName) &&
             learner.birthDate.getTime() === newLearner.birthDate.getTime()
         ) === undefined
       )

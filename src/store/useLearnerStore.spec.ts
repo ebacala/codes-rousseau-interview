@@ -113,6 +113,14 @@ describe('Learners Store', () => {
       ).toBeFalsy()
     })
 
+    test('canCreateNewLearner returns false with differently capped last name', () => {
+      const store = useLearnersStore()
+
+      expect(
+        store.canCreateNewLearner({ lastName: 'TESt', firstName: 'Test', birthDate: new Date('1998-08-18') })
+      ).toBeFalsy()
+    })
+
     test('createNewLearner', () => {
       const store = useLearnersStore()
 

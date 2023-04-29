@@ -26,6 +26,7 @@
         <tbody>
           <tr
             v-for="learner of store.$state.learners"
+            :key="learner.id"
             :class="{
               'green-line': hasANoteAbove35(learner.notes),
               'red-line': hasANoteBelow20(learner.notes),
@@ -74,7 +75,7 @@
       </table>
     </div>
     <div v-else class="row">
-      <div v-for="learner of store.learners" class="card col-11 m-3">
+      <div v-for="learner of store.learners" :key="learner.id" class="card col-11 m-3">
         <div class="row d-flex flex-row align-items-center justify-content-between">
           <LearnerAvatar :first-name="learner.firstName" :last-name="learner.lastName" />
           <button
@@ -125,15 +126,15 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
-import { useLearnersStore } from '../store/useLearnersStore'
+import { useLearnersStore } from '@/store/useLearnersStore'
 
-import LearnerAvatar from '../components/LearnerAvatar.vue'
-import ModalNotesViewer from '../components/Modals/ModalNotesViewer/ModalNotesViewer.vue'
-import ModalNoteCreation from '../components/Modals/ModalNoteCreation/ModalNoteCreation.vue'
-import ModalLearnerDeletion from '../components/Modals/ModalLearnerDeletion.vue'
-import ModalLearnerCreation from '../components/Modals/ModalLearnerCreation.vue'
+import LearnerAvatar from '@/components/LearnerAvatar.vue'
+import ModalNotesViewer from '@/components/Modals/ModalNotesViewer/ModalNotesViewer.vue'
+import ModalNoteCreation from '@/components/Modals/ModalNoteCreation/ModalNoteCreation.vue'
+import ModalLearnerDeletion from '@/components/Modals/ModalLearnerDeletion/ModalLearnerDeletion.vue'
+import ModalLearnerCreation from '@/components/Modals/ModalLearnerCreation/ModalLearnerCreation.vue'
 
-import { LEARNERS_TABLE_COLUMNS } from '../constants/constants'
+import { LEARNERS_TABLE_COLUMNS } from '@/constants/constants'
 
 const store = useLearnersStore()
 

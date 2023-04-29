@@ -3,13 +3,13 @@
     <table class="table">
       <thead>
         <tr>
-          <th v-for="column of RESULTS_TABLE_COLUMNS" scope="col">
+          <th v-for="(column, index) of RESULTS_TABLE_COLUMNS" :key="index" scope="col">
             {{ column }}
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="note of [...Array(41).keys()].reverse()">
+        <tr v-for="(note, index) of [...Array(41).keys()].reverse()" :key="index">
           <td>{{ note }}</td>
           <td>
             {{
@@ -26,10 +26,9 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useLearnersStore } from '../store/useLearnersStore'
+import { useLearnersStore } from '@/store/useLearnersStore'
 
-import { RESULTS_TABLE_COLUMNS } from '../constants/constants'
+import { RESULTS_TABLE_COLUMNS } from '@/constants/constants'
 
 const store = useLearnersStore()
 </script>

@@ -5,16 +5,18 @@
       <p>Do you wish to delete {{ learner.firstName }} {{ learner.lastName }}'s profile?</p>
     </template>
     <template #footer>
-      <button type="button" class="btn btn-danger" @click="deleteLearner">Confirm deletion</button>
+      <button id="modal-learner-deletion-delete-button" type="button" class="btn btn-danger" @click="deleteLearner">
+        Confirm deletion
+      </button>
     </template>
   </Modal>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
-import { useLearnersStore } from '../../store/useLearnersStore'
+import { ref } from 'vue'
+import { useLearnersStore } from '@/store/useLearnersStore'
 
-import Modal from './Modal/Modal.vue'
+import Modal from '@/components/Modals/Modal/Modal.vue'
 
 const props = defineProps(['learner'])
 
