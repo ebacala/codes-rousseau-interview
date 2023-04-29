@@ -1,37 +1,37 @@
 {
-	"name": "codes-rousseau-interview",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
-		"format": "prettier .  --write",
-		"test": "vitest --dom",
-		"test:coverage": "vitest run --dom --coverage"
-	},
-	"dependencies": {
-		"@popperjs/core": "^2.11.7",
-		"apexcharts": "^3.39.0",
-		"bootstrap": "^5.2.3",
-		"pinia": "^2.0.35",
-		"vue": "^3.2.47",
-		"vue-router": "4",
-		"vue3-apexcharts": "^1.4.1"
-	},
-	"devDependencies": {
-		"@vitejs/plugin-vue": "^4.1.0",
-		"@vitest/coverage-c8": "^0.30.1",
-		"@vitest/ui": "^0.30.1",
-		"@vue/test-utils": "^2.3.2",
-		"eslint": "8.38.0",
-		"eslint-config-prettier": "8.8.0",
-		"eslint-plugin-vue": "9.11.0",
-		"happy-dom": "^9.9.2",
-		"prettier": "2.8.7",
-		"vite": "^4.3.0",
-		"vitest": "^0.30.1"
-	}
+  "name": "codes-rousseau-interview",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
+    "format": "prettier .  --write",
+    "test": "vitest --dom",
+    "test:coverage": "vitest run --dom --coverage"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.7",
+    "apexcharts": "^3.39.0",
+    "bootstrap": "^5.2.3",
+    "pinia": "^2.0.35",
+    "vue": "^3.2.47",
+    "vue-router": "4",
+    "vue3-apexcharts": "^1.4.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^4.1.0",
+    "@vitest/coverage-c8": "^0.30.1",
+    "@vitest/ui": "^0.30.1",
+    "@vue/test-utils": "^2.3.2",
+    "eslint": "8.38.0",
+    "eslint-config-prettier": "8.8.0",
+    "eslint-plugin-vue": "9.11.0",
+    "happy-dom": "^9.9.2",
+    "prettier": "2.8.7",
+    "vite": "^4.3.0",
+    "vitest": "^0.30.1"
+  }
 }

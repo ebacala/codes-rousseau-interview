@@ -14,12 +14,18 @@
   src: url('/assets/fonts/Montserrat-Medium.ttf') format('truetype');
 }
 
-html, body {
-  font-family: "Montserrat", sans-serif;
+html,
+body {
+  font-family: 'Montserrat', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Montserrat', sans-serif;
 }
 
 .debug {
@@ -30,10 +36,10 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 
-.green-line>td {
+.green-line > td {
   background-color: lightgreen !important;
 }
 
-.red-line>td {
+.red-line > td {
   background-color: lightcoral;
 }

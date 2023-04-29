@@ -18,7 +18,7 @@
       <table class="table">
         <thead>
           <tr>
-            <th scope="col" v-for="column of LEARNERS_TABLE_COLUMNS">
+            <th v-for="column of LEARNERS_TABLE_COLUMNS" scope="col">
               {{ column }}
             </th>
           </tr>
@@ -32,7 +32,7 @@
             }"
           >
             <td class="align-middle">
-              <LearnerAvatar :firstName="learner.firstName" :lastName="learner.lastName" />
+              <LearnerAvatar :first-name="learner.firstName" :last-name="learner.lastName" />
             </td>
             <td class="align-middle">{{ learner.lastName }}</td>
             <td class="align-middle">{{ learner.firstName }}</td>
@@ -74,9 +74,9 @@
       </table>
     </div>
     <div v-else class="row">
-      <div class="card col-11 m-3" v-for="learner of store.learners">
+      <div v-for="learner of store.learners" class="card col-11 m-3">
         <div class="row d-flex flex-row align-items-center justify-content-between">
-          <LearnerAvatar :firstName="learner.firstName" :lastName="learner.lastName" />
+          <LearnerAvatar :first-name="learner.firstName" :last-name="learner.lastName" />
           <button
             type="button"
             class="btn btn-secondary w-50 m-2"
@@ -129,7 +129,7 @@ import { useLearnersStore } from '../store/useLearnersStore'
 
 import LearnerAvatar from '../components/LearnerAvatar.vue'
 import ModalNotesViewer from '../components/Modals/ModalNotesViewer.vue'
-import ModalNoteCreation from '../components/Modals/ModalNoteCreation.vue'
+import ModalNoteCreation from '../components/Modals/ModalNoteCreation/ModalNoteCreation.vue'
 import ModalLearnerDeletion from '../components/Modals/ModalLearnerDeletion.vue'
 import ModalLearnerCreation from '../components/Modals/ModalLearnerCreation.vue'
 

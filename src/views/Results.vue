@@ -3,7 +3,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col" v-for="column of RESULTS_TABLE_COLUMNS">
+          <th v-for="column of RESULTS_TABLE_COLUMNS" scope="col">
             {{ column }}
           </th>
         </tr>

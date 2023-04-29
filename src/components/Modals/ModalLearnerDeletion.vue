@@ -1,5 +1,5 @@
 <template>
-  <Modal ref="modalLearnerDeletion" modalId="modal-learner-deletion">
+  <Modal ref="modalLearnerDeletion" modal-id="modal-learner-deletion">
     <template #title>Delete {{ learner.firstName }} {{ learner.lastName }}'s profile</template>
     <template #body>
       <p>Do you wish to delete {{ learner.firstName }} {{ learner.lastName }}'s profile?</p>

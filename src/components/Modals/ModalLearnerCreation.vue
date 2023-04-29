@@ -1,15 +1,15 @@
 <template>
-  <Modal ref="modalLearnerCreation" modalId="modal-learner-creation">
+  <Modal ref="modalLearnerCreation" modal-id="modal-learner-creation">
     <template #title>Create a new learner profile</template>
     <template #body>
       <form ref="formRef" class="row">
         <div class="mb-3">
           <label for="learnerFormLastNameInput" class="form-label">Last Name</label>
           <input
+            id="learnerFormLastNameInput"
             v-model="newLearner.lastName"
             type="text"
             class="form-control"
-            id="learnerFormLastNameInput"
             required
           />
           <div class="invalid-feedback">Please provide a last name.</div>
@@ -18,10 +18,10 @@
         <div class="mb-3">
           <label for="learnerFormFirstNameInput" class="form-label">First Name</label>
           <input
+            id="learnerFormFirstNameInput"
             v-model="newLearner.firstName"
             type="text"
             class="form-control"
-            id="learnerFormFirstNameInput"
             required
           />
           <div class="invalid-feedback">Please provide a first name.</div>
@@ -29,7 +29,7 @@
 
         <div class="mb-3">
           <label for="learnerFormDateInput" class="form-label">Birth Date</label>
-          <input v-model="newLearner.birthDate" type="date" class="form-control" id="learnerFormDateInput" required />
+          <input id="learnerFormDateInput" v-model="newLearner.birthDate" type="date" class="form-control" required />
           <div class="invalid-feedback">Please provide a valid birth date.</div>
         </div>
       </form>

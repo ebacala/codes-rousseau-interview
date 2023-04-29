@@ -1,6 +1,6 @@
 <template>
-    <AppHeader />
-    <router-view></router-view>
+  <AppHeader />
+  <router-view></router-view>
 </template>
 
 <script setup>
@@ -14,7 +14,7 @@ import learners from './learners.json'
 const store = useLearnersStore()
 
 onMounted(() => {
-    store.importLearners(learners)
+  store.importLearners(learners)
 })
 </script>
 

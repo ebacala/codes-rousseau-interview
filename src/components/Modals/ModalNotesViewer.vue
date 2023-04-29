@@ -1,5 +1,5 @@
 <template>
-  <Modal modalId="modal-notes-viewer">
+  <Modal modal-id="modal-notes-viewer">
     <template #title>{{ learner.firstName }} {{ learner.lastName }}'s notes</template>
     <template #body>
       <table class="table">
