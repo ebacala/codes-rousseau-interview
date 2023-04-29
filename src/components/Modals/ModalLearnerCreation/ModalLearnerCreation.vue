@@ -84,7 +84,11 @@ const createLearner = (event) => {
     if (store.canCreateNewLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })) {
       store.createLearner({ ...newLearner.value, birthDate: new Date(newLearner.value.birthDate) })
 
-      newLearner.value = ''
+      newLearner.value = {
+        firstName: '',
+        lastName: '',
+        birthDate: '',
+      }
       modalLearnerCreation.value.closeModal()
     } else {
       window.alert('This learner aleady exists!')
